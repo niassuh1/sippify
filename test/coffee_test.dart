@@ -14,7 +14,7 @@ void main() {
       () {
     Coffee _coffee1 = Coffee(weight: 30, sweetness: Sweetness.Sweet);
 
-    expect(_coffee1.getFullBrew(), [45, 135, 90, 90, 90]);
+    expect(_coffee1.getFullBrew(), [62, 117, 90, 90, 90]);
   });
   test('30g sweetness and strong coffee should be brewed correctly', () {
     Coffee _coffee1 = Coffee(

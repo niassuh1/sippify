@@ -5,9 +5,9 @@ enum Sweetness { Acidy, Regular, Sweet }
 enum Strength { Weak, Regular, Strong }
 
 class Coffee {
-  final double? weight;
-  final Sweetness sweetness;
-  final Strength strength;
+  late double? weight;
+  late Sweetness sweetness;
+  late Strength strength;
   late List<double> brewAmounts = List<double>.filled(totalBrews, 0);
 
   Coffee({
@@ -36,22 +36,46 @@ class Coffee {
     }
   }
 
+  /// Gets the strength of the coffee as a string
+  String get strengthText {
+    switch (strength) {
+      case Strength.Weak:
+        return 'Weak';
+      case Strength.Regular:
+        return 'Regular';
+      case Strength.Strong:
+        return 'Strong';
+    }
+  }
+
+  /// Gets the strength of the coffee as a string
+  String get sweetnessText {
+    switch (sweetness) {
+      case Sweetness.Acidy:
+        return 'Acidic';
+      case Sweetness.Regular:
+        return 'Regular';
+      case Sweetness.Sweet:
+        return 'Sweet';
+    }
+  }
+
   /// Gets the first 40% of the overall brews
   /// ![](https://mynewchapterinlife.files.wordpress.com/2020/09/adj-taste-e1601310065997.jpg)
   void _get40Brews() {
     double fortyPercentBrew = singleCupWeight * 2;
     switch (sweetness) {
       case Sweetness.Acidy:
-        brewAmounts[0] = fortyPercentBrew * .75;
-        brewAmounts[1] = fortyPercentBrew * .25;
+        brewAmounts[0] = fortyPercentBrew * .65;
+        brewAmounts[1] = fortyPercentBrew * .35;
         break;
       case Sweetness.Regular:
         brewAmounts[0] = fortyPercentBrew / 2;
         brewAmounts[1] = fortyPercentBrew / 2;
         break;
       case Sweetness.Sweet:
-        brewAmounts[0] = fortyPercentBrew * .25;
-        brewAmounts[1] = fortyPercentBrew * .75;
+        brewAmounts[0] = fortyPercentBrew * .35;
+        brewAmounts[1] = fortyPercentBrew * .65;
         break;
     }
   }

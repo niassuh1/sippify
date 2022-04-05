@@ -1,15 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glassbean/models/coffee.dart';
 
-/// Provider for the weight
-final weightProvider = StateProvider<double>((_) => 15.0);
-
-/// Provider for the sweetness
-final sweetnessProvider = StateProvider<Sweetness>((_) => Sweetness.Regular);
-
-/// Provider for the sweetness
-final strengthProvider = StateProvider<Strength>((_) => Strength.Regular);
-
 class CoffeeNotifier extends StateNotifier<Coffee> {
   CoffeeNotifier() : super(Coffee(strength: Strength.Weak));
 

@@ -16,7 +16,7 @@ class DopePanel extends StatelessWidget {
           headline!,
           style: Theme.of(context).textTheme.headline1,
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 16),
         child == null ? SizedBox() : child!
       ],
     );

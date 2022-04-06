@@ -20,6 +20,9 @@ List<Color?> colorFade = [
   primaryColor[600]
 ];
 
+Color darkThemeScaffoldBg = Color(0xFF393E46);
+Color appBarBgColor = Color(0xFF222831);
+
 ColorScheme colorSchemeLight = ColorScheme(
   brightness: Brightness.light,
   secondary: primaryColor[100]!,

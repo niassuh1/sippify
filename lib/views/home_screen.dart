@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glassbean/constants.dart';
-import 'package:glassbean/services/coffee_maker_provider.dart';
+import 'package:glassbean/services/coffee_provider.dart';
+import 'package:glassbean/views/coffee_maker_screen.dart';
 import 'package:glassbean/widgets/custom_sliver_appbar.dart';
 import 'package:glassbean/widgets/description_panel.dart';
 import 'package:glassbean/widgets/dope_panel.dart';
@@ -22,7 +23,14 @@ class HomeScreen extends ConsumerWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CoffeeMakerScreen(),
+                ),
+              );
+            },
             splashColor: Colors.white.withOpacity(.1),
             highlightColor: Colors.white.withOpacity(.2),
             child: const Center(

@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:glassbean/models/coffee.dart';
 
+// TODO: Update test
 void main() {
   test(
       '20g regular sweetness and regular strength coffee should be brewed correctly',

@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glassbean/models/coffee.dart';
 
 class CoffeeNotifier extends StateNotifier<Coffee> {
-  CoffeeNotifier() : super(Coffee(strength: Strength.Weak));
+  CoffeeNotifier() : super(Coffee());
 
   void setWeight(double v) {
     state =

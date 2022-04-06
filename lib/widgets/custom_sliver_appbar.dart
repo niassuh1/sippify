@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:glassbean/views/settings_screen.dart';
 
 import '../constants.dart';
 
@@ -8,12 +10,21 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      foregroundColor: Colors.black38,
       forceElevated: true,
       actions: [
         IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.tune),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SettingsScreen(),
+              ),
+            );
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.slidersH,
+            size: 16,
+          ),
           splashRadius: 20,
         ),
         IconButton(

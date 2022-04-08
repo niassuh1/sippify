@@ -18,9 +18,10 @@ class CoffeeMakerNotifier extends StateNotifier<CoffeeMaker> {
 
   void start() {
     state = CoffeeMaker(
-        timerStarted: true,
-        timerPaused: false,
-        currentWaterBrewed: state.currentWaterBrewed);
+      timerStarted: true,
+      timerPaused: false,
+      currentWaterBrewed: state.currentWaterBrewed,
+    );
   }
 
   void resume() {
@@ -37,19 +38,27 @@ class CoffeeMakerNotifier extends StateNotifier<CoffeeMaker> {
 
   void pause() {
     state = CoffeeMaker(
-        timerStarted: state.timerStarted,
-        timerPaused: true,
-        currentWaterBrewed: state.currentWaterBrewed);
+      timerStarted: state.timerStarted,
+      timerPaused: true,
+      currentWaterBrewed: state.currentWaterBrewed,
+    );
   }
 
   void setWaterAmount(double v) {
     state = CoffeeMaker(
-        timerStarted: state.timerStarted,
-        timerPaused: this.state.timerPaused,
-        currentWaterBrewed: v);
+      timerStarted: state.timerStarted,
+      timerPaused: state.timerPaused,
+      currentWaterBrewed: state.currentWaterBrewed + v,
+    );
   }
 }
 
 final coffeeMakerProvider =
-    StateNotifierProvider<CoffeeMakerNotifier, CoffeeMaker>(
+    StateNotifierProvider.autoDispose<CoffeeMakerNotifier, CoffeeMaker>(
         (_) => CoffeeMakerNotifier());
+
+final counterProvider = StateProvider.autoDispose((_) => CountDownController());
+
+final iterationProvider = StateProvider<int>((_) => 0);
+
+final brewAmountProvider = StateProvider.autoDispose<double>((_) => 0);

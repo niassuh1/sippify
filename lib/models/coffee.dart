@@ -107,4 +107,19 @@ class Coffee {
     _get60Brews();
     return this.brewAmounts;
   }
+
+  List<double> getIterableFullBrew() {
+    _get40Brews();
+    _get60Brews();
+    List<double> iterableAmount = [];
+
+    double value = 0;
+
+    brewAmounts.asMap().entries.map((e) {
+      value += e.value;
+      iterableAmount[e.key] = value;
+    });
+
+    return iterableAmount;
+  }
 }

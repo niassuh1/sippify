@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glassbean/constants.dart';
 import 'package:glassbean/services/coffee_provider.dart';
+import 'package:glassbean/services/count_down_provider.dart';
 import 'package:glassbean/views/coffee_maker_screen.dart';
+import 'package:glassbean/widgets/animated_brew_bars.dart';
 import 'package:glassbean/widgets/custom_sliver_appbar.dart';
 import 'package:glassbean/widgets/description_panel.dart';
 import 'package:glassbean/widgets/dope_panel.dart';
@@ -24,6 +26,8 @@ class HomeScreen extends ConsumerWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: () {
+              // Reset iteration
+              ref.read(iterationProvider.state).state = 0;
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -93,12 +97,15 @@ class HomeScreen extends ConsumerWidget {
                       child: OptionTabs(
                         value: getSweetness(ref),
                         onTab: (e) {
-                          print(e);
                           ref
                               .read(coffeeProvider.notifier)
                               .setSweetness(sweetnessChange(e.toInt()));
                         },
-                        tabs: [Text('Acidy'), Text('Regular'), Text('Sweet')],
+                        tabs: const [
+                          Text('Acidy'),
+                          Text('Regular'),
+                          Text('Sweet')
+                        ],
                       )),
 
                   const SizedBox(height: 42),
@@ -106,21 +113,17 @@ class HomeScreen extends ConsumerWidget {
                   // Dope panel for strength
                   DopePanel(
                     headline: 'Strength',
-                    child: Column(
-                      children: [
-                        OptionTabs(
-                          onTab: (e) {
-                            ref
-                                .read(coffeeProvider.notifier)
-                                .setStrength(strengthChange(e.toInt()));
-                          },
-                          value: getStrength(ref),
-                          tabs: [
-                            Text('Weak'),
-                            Text('Regular'),
-                            Text('Strong'),
-                          ],
-                        )
+                    child: OptionTabs(
+                      onTab: (e) {
+                        ref
+                            .read(coffeeProvider.notifier)
+                            .setStrength(strengthChange(e.toInt()));
+                      },
+                      value: getStrength(ref),
+                      tabs: const [
+                        Text('Weak'),
+                        Text('Regular'),
+                        Text('Strong'),
                       ],
                     ),
                   ),
@@ -160,62 +163,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   // Displays the brewing process
                   // TODO: Optimize this shit code
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: ref
-                        .read(coffeeProvider)
-                        .getFullBrew()
-                        .asMap()
-                        .entries
-                        .map((e) {
-                      double ratio =
-                          e.value / ref.read(coffeeProvider).fullWaterWeight;
-
-                      return AnimatedContainer(
-                        duration: const Duration(milliseconds: 150),
-                        width: MediaQuery.of(context).size.width * ratio - 15,
-                        curve: Curves.ease,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2),
-                              child: Container(
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  color: colorFade[e.key],
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                style: const TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500),
-                                children: [
-                                  TextSpan(
-                                    text: e.value.toStringAsFixed(1),
-                                  ),
-                                  const TextSpan(
-                                    text: '\nml',
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                  const AnimatedBrewBars(),
                   Column(
                     children: [],
                   ),

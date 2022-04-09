@@ -10,7 +10,8 @@ class AnimatedBrewBars extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: ref.read(coffeeProvider).getFullBrew().asMap().entries.map((e) {
+      children:
+          ref.watch(coffeeProvider).getFullBrew().asMap().entries.map((e) {
         double ratio = e.value / ref.read(coffeeProvider).fullWaterWeight;
 
         return AnimatedContainer(
